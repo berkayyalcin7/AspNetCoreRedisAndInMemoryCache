@@ -54,7 +54,7 @@ namespace IDistributedCacheRedisApp.Web.Controllers
 
             byte[] imageByte = System.IO.File.ReadAllBytes(path);
 
-            _distributedCache.Set("MyImage",imageByte);
+            await _distributedCache.SetAsync("MyImage",imageByte);
 
 
             return View();
