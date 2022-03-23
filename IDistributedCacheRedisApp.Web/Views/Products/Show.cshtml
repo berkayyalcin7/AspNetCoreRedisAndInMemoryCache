@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewData["Title"] = "Show";
+    Product p = ViewBag.Product as Product;
+}
+
+<h1>Show</h1>
+
+<h2>@ViewBag.Name</h2>
+
+<h2>@p.Id => @p.Name => @p.Price</h2>
