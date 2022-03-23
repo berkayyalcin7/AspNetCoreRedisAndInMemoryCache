@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using System;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -46,6 +47,26 @@ namespace IDistributedCacheRedisApp.Web.Controllers
             return View();
         }
 
+        public async Task<IActionResult> ImageCache()
+        {
+            // Take Path 
+            string path = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot/img/haosama.png");
+
+            byte[] imageByte = System.IO.File.ReadAllBytes(path);
+
+            _distributedCache.Set("MyImage",imageByte);
+
+
+            return View();
+        }
+
+        public IActionResult ImageUrl()
+        {
+            byte[] image = _distributedCache.Get("MyImage");
+
+            return File(image,"image/png");
+        }
+
         public IActionResult Show()
         {
             string name = _distributedCache.GetString("Name");
@@ -64,5 +85,10 @@ namespace IDistributedCacheRedisApp.Web.Controllers
             _distributedCache.Remove("Name");
             return View();
         }
+
+
+
+
+
     }
 }
